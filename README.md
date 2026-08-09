@@ -1,44 +1,44 @@
-# 🎓 College Management System
+# College Management System
 
-A full-stack College Management System built with the MERN stack. The application provides separate dashboards and role-based access for Admins and Teachers to manage departments, students, classes, teachers, courses, and student attendance.
+A full-stack College Management System built with the MERN stack.
 
-## 🌐 Live Demo ->
-https://collegemsbymd.netlify.app
+The application provides separate dashboards for Admin and Teachers, allowing college data, classes, students, teachers, courses, and attendance to be managed from a centralized system.
 
 ---
 
-# 📌 Features
+## 🚀 Live Demo
 
-## 🔐 Authentication & Authorization
+### Frontend
+https://collegemsbymd.netlify.app
+
+## 📌 Features
+
+### 🔐 Authentication & Authorization
 
 - Admin login
 - Teacher login
-- Secure password hashing using bcrypt
-- JWT-based authentication
-- HTTP-only cookies for authentication
+- Cookie-based authentication
+- HTTP-only authentication cookies
 - Role-based authorization
-- Protected Admin routes
-- Protected Teacher routes
-- Automatic user session verification
-- Logout functionality
-- Production-ready CORS and cookie configuration
+- Protected routes
+- Separate Admin and Teacher dashboards
+- Secure logout
+- Persistent login after page refresh
 
 ---
 
-# 👨‍💼 Admin Features
+## 👨‍💼 Admin Features
 
-Admin has complete management access to the college system.
+Admin has complete control over the college management system.
 
 ### Dashboard
-
-Admin dashboard provides an overview of:
 
 - Total Students
 - Total Teachers
 - Total Departments
 - Total Courses
 
-Dashboard data is fetched from the backend.
+Dashboard statistics are fetched dynamically from the backend.
 
 ### Department Management
 
@@ -60,29 +60,19 @@ Admin can:
 - Assign students to departments
 - Assign students to classes
 - Search students
-- Filter students by Roll Number
-
-Student information includes:
-
-- Name
-- Email
-- Roll Number
-- Department
-- Class
+- Filter students by roll number
+- View student class and department
 
 ### Teacher Management
 
 Admin can:
 
-- Create teachers
+- Add teachers
 - View teachers
 - Edit teachers
 - Delete teachers
 - Assign teachers to departments
-- Assign teachers to classes
-- Update teacher credentials
-
-Teacher passwords are securely hashed before being stored in the database.
+- Assign classes to teachers
 
 ### Class Management
 
@@ -92,7 +82,7 @@ Admin can:
 - View classes
 - Edit classes
 - Delete classes
-- Assign departments to classes
+- Assign classes to departments
 - Assign teachers to classes
 
 ### Course Management
@@ -106,57 +96,173 @@ Admin can:
 
 ---
 
-# 👨‍🏫 Teacher Features
+## 👨‍🏫 Teacher Features
 
-Teachers have their own dashboard with restricted access.
+Teachers have their own dashboard and can only access their assigned resources.
 
-## Teacher Dashboard
+### Teacher Dashboard
 
-Teachers can view:
+Displays:
 
 - Teacher name
-- Assigned department
-- Assigned classes
+- Department
 - Number of assigned classes
-- List of assigned classes
+- Assigned classes
+- Department information
 
-Teachers only receive data related to their own account.
+### Attendance Management
 
-## Attendance Management
+Teachers can:
 
-Teachers can take daily attendance for their assigned classes.
-
-Attendance statuses:
-
-- Present
-- Absent
-- Late
-
-### Attendance Features
-
-- Select assigned class
+- View only their assigned classes
+- Select a class
 - Select attendance date
-- View students belonging to selected class
-- Mark Present
-- Mark Absent
-- Mark Late
+- View students belonging to the selected class
+- Mark students as:
+  - Present
+  - Absent
+  - Late
 - Save attendance
-- Update previously saved attendance
-- View past attendance records
-- View attendance by class
-- View attendance by date
-- See which teacher marked the attendance
+- Update attendance for an existing date
+- View previous attendance records
+- See which teacher marked attendance
 
-Each class contains 10 students as required by the project specification.
+Teachers cannot mark attendance for classes that are not assigned to them.
 
 ---
 
-# 🛡️ Role-Based Access Control
+## 🔒 Role-Based Access Control
 
-The application uses role-based access control.
+The application uses role-based authorization.
 
-Supported roles:
+### Admin
+
+Admin can access:
+
+- Admin Dashboard
+- Departments
+- Students
+- Teachers
+- Classes
+- Courses
+
+### Teacher
+
+Teacher can access:
+
+- Teacher Dashboard
+- Attendance
+
+Teachers cannot access Admin-only APIs or pages.
+
+Backend authorization is also implemented, so frontend route protection alone is not relied upon for security.
+
+---
+
+## 🛠️ Tech Stack
+
+### Frontend
+
+- React.js
+- Vite
+- React Router DOM
+- Tailwind CSS
+- Axios
+- Lucide React
+
+### Backend
+
+- Node.js
+- Express.js
+- MongoDB
+- Mongoose
+- bcryptjs
+- JSON Web Token
+- Cookie Parser
+- CORS
+- dotenv
+
+### Database
+
+- MongoDB
+
+### Deployment
+
+- Netlify - Frontend
+- Render - Backend
+- MongoDB Atlas - Database
+
+---
+
+## 📂 Project Structure
 
 ```text
-admin
-teacher
+CollegeMS/
+│
+├── frontend/
+│   │
+│   ├── src/
+│   │   ├── components/
+│   │   ├── context/
+│   │   ├── pages/
+│   │   │   ├── admin/
+│   │   │   └── teacher/
+│   │   ├── services/
+│   │   ├── layouts/
+│   │   ├── App.jsx
+│   │   └── main.jsx
+│   │
+│   ├── public/
+│   │   └── _redirects
+│   │
+│   ├── package.json
+│   └── vite.config.js
+│
+├── backend/
+│   │
+│   ├── config/
+│   │   ├── db.js
+│   │
+│   ├── controllers/
+│   │   ├── adminController.js
+│   │   ├── authController.js
+│   │   ├── attendanceController.js
+│   │   ├── classController.js
+│   │   ├── courseController.js
+│   │   ├── departmentController.js
+│   │   ├── studentController.js
+│   │   └── teacherController.js
+│   │
+│   ├── middleware/
+│   │   ├── authMiddleware.js
+│   │   └── roleMiddleware.js
+│   │
+│   ├── models/
+│   │   ├── Admin.js
+│   │   ├── Attendance.js
+│   │   ├── Class.js
+│   │   ├── Course.js
+│   │   ├── Department.js
+│   │   ├── Student.js
+│   │   └── Teacher.js
+│   │
+│   ├── routes/
+│   │   ├── adminRoutes.js
+│   │   ├── attendanceRoutes.js
+│   │   ├── authRoutes.js
+│   │   ├── classRoutes.js
+│   │   ├── courseRoutes.js
+│   │   ├── departmentRoutes.js
+│   │   ├── studentRoutes.js
+│   │   └── teacherRoutes.js
+│   │
+│   ├── seed/
+│   │   └── seed.js
+│   │
+│   ├── utils/
+│   │   └── generateToken.js
+│   │
+│   ├── server.js
+│   └── package.json
+│
+└── README.md
